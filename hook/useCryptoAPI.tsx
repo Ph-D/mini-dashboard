@@ -1,18 +1,13 @@
 import useSWR from 'swr';
 import fetchCrypto from '@/lib/fetchCrypto';
-import { useEffect } from 'react';
 
 function useCryptoAPI(currency: string) {
+
   const { data, error, isLoading, mutate } = useSWR(currency, fetchCrypto, {
     revalidateOnMount: false,
-    shouldRetryOnError: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
   });
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     console.log('useCryptoAPI', currency);
-  //   }
-  // }, [currency]);
 
   return {
     data,
@@ -24,12 +19,14 @@ function useCryptoAPI(currency: string) {
 
 export default useCryptoAPI;
 
+/* SIMPLE PROMISE BASED FETCH */
+
 // import { useState, useEffect } from 'react';
 // import fetchCrypto from '@/lib/fetchCrypto';
 
 // function useCryptoAPI(currency: string) {
 //   const [data, setData] = useState(null);
-//   const [error, setError] = useState<any>(null);
+//   const [error, setError] = useState<string>(null);
 //   const [isLoading, setIsLoading] = useState(false);
 
 //   useEffect(() => {

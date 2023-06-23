@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useCryptoStore } from "@/store/CryptoStore";
 import useCryptoAPI from "@/hook/useCryptoAPI";
-import useSWR from "swr";
-import fetchCrypto from "@/lib/fetchCrypto";
+
 const cryptos = [
   { value: "bitcoin", label: "Bitcoin" },
   { value: "ethereum", label: "Ethereum" },
@@ -24,15 +23,18 @@ type option = {
 
 const CryptoPicker = () => {
   
-  const [crypto, setCrypto] = useState<option>(null);
-  const [currency, setCurrency] = useState('');
+  const [crypto, setCrypto] = useState<option>({
+    value: "bitcoin",
+    label: "Bitcoin",
+  });
 
+  const [currency, setCurrency] = useState('bitcoin');
   const [isMounted, setIsMounted] = useState(false);
-  const { setSelectedCrypto, setFetchLoadingState, setFetchDataState, fetchLoadingState, fetchDataState } = useCryptoStore();
-  const id = Date.now().toString();
+
   const {data, error, isLoading, mutate} = useCryptoAPI(currency);
+  const { setSelectedCrypto, setFetchLoadingState, setFetchDataState, fetchLoadingState } = useCryptoStore();
 
-
+  const id = Date.now().toString();
   const options = cryptos.map((crypto) => ({
     value: crypto.value,
     label: crypto.label,
@@ -43,9 +45,6 @@ const CryptoPicker = () => {
       setCrypto(crypto);
       setCurrency(crypto.value);
       setSelectedCrypto(crypto.value);
-      // mutate();
-      // setFetchDataState(data);
-
     }
   };
 
@@ -57,21 +56,15 @@ const CryptoPicker = () => {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    mutate();
+  }, [mutate]);
 
-  useEffect(() => {
-    if (currency) {
-      mutate();
-    }
-  }, [currency]);
-  
 
   useEffect(() => {
       if(data) {
-        console.log('data', data);
         setFetchDataState(data);
       }
-  }, [data, mutate]);
+  }, [data]);
 
   
   return (
@@ -79,7 +72,6 @@ const CryptoPicker = () => {
       <h1>CryptoPicker</h1>
       {isMounted ? (
       <div>
-        { isLoading && <p>loading</p>}
         {fetchLoadingState}
         <Select
           id={id}
