@@ -5,12 +5,9 @@ import Image from "next/image";
 import { useCryptoStore } from "@/store/CryptoStore";
 
 function SidePanel() {
-
-
   const { fetchDataState } = useCryptoStore();
   const image = fetchDataState?.image?.large;
   const name = fetchDataState?.name;
-  
 
   return (
     <div className="bg-gradient-to-br from-blue-400 to-blue-700 text-white p-10 md-custom:w-[450px]">
