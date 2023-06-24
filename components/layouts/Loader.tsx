@@ -1,4 +1,3 @@
-
 function Loader() {
   return (
     <div className="flex justify-center items-center z-50 h-full w-full absolute bottom-0">

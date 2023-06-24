@@ -1,5 +1,4 @@
 import { create } from "zustand";
-// import fetchCrypto from '@/lib/fetchCrypto';
 
 export const useCryptoStore = create<CryptoState>((set) => ({
   selectedCrypto: "",
