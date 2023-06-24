@@ -1,9 +1,5 @@
-const fetchCrypto =  (currency: string) => {
-  console.log("fetchCrypto endpoint call");
-  return fetch("/api/getCrypto/" + currency).then(res => res.json());
-
-}
-
+const fetchCrypto = (currency: string) => {
+  return fetch("/api/getCrypto/" + currency).then((res) => res.json());
+};
 
 export default fetchCrypto;
-

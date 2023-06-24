@@ -1,14 +1,19 @@
 import { NextResponse } from "next/server";
 
+export async function GET(
+  request: Request,
+  { params }: { params: { crypto: string } }
+) {
+  const { crypto } = params;
 
+  const [response, hourly] = await Promise.all([
+    fetch(`https://api.coingecko.com/api/v3/coins/${crypto}`),
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=eur&days=20&interval=daily&precision=0`
+    ),
+  ]);
 
-export async function GET(request: Request, { params }: { params: { crypto: string } }) {
+  const [data, dailyData] = await Promise.all([response.json(), hourly.json()]);
 
-    const { crypto } = params;
-
-    const response = await fetch(`https://api.coingecko.com/api/v3/coins/${crypto}`);
-    const data = await response.json();
-
-    return NextResponse.json(data);
-
+  return NextResponse.json({ ...data, dailyData });
 }

@@ -8,9 +8,7 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
-    screens: {
-      'md-custom': '1000px'
-    },
+ 
     extend: {
       colors: {
         // light mode

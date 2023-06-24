@@ -1,13 +1,11 @@
-import DarkModeButton from "@/components/DarkModeButton";
-import MainPanel from "@/components/MainPanel";
-import SidePanel from "@/components/SidePanel";
+import MainPanel from "@/components/mainpanel";
+import SidePanel from "@/components/sidepanel";
 
 export default function Home() {
-
   return (
-    <div className="flex flex-col min-h-screen md-custom:flex-row">
+    <div className="flex flex-col min-h-screen md:flex-row">
       <SidePanel />
-      <div className="flex-1 p-5 lg:p-10">
+      <div className="flex-1 overflow-auto p-5 lg:p-10">
         <MainPanel />
       </div>
     </div>
