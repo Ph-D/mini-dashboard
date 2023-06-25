@@ -2,11 +2,14 @@
 
 A simple dashboard built with Next.js, Zustand, Tailwind CSS, SWR, and Tremor React.
 
+
+https://mini-dashboard-beta.vercel.app/
+
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js (v16 or higher)
 - npm (v7 or higher)
 
 ### Installation
